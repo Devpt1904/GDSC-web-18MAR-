@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Card from './Card'
 import mouse from '../assets/mouse.jpg'
+import Loading from './Loading';
 
 const data=[
 
@@ -53,14 +54,28 @@ const data=[
 ];
 
 const Home = () => {
-  return (
-    <div className='flex flex-row  flex-wrap '>
-        {data.map((item)=>(
-          <div key={item.id}>
+  const [isLoading, setIsLoading] = useState(false)
+
+  useEffect(() =>{
+    setIsLoading(true)
+    setTimeout(()=>{
+      setIsLoading(false)
+    },10000)
+  }, [])
+ return (
+    <div >
+      {isLoading ? <Loading/> : 
+        <div className='flex flex-row flex-wrap '>
+        {data.map((item, idx)=>(
+          <div key={idx}>
           <Card data={item}/>
+          <p>{idx}</p>
           </div>
         ))}
-    </div>  
+            </div>
+
+        }
+        </div>
   )
 }
 
